@@ -41,6 +41,17 @@ resource resourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' = {
   tags: tags
 }
 
+// User assigned managed identity
+module managedIdentity 'core/security/managedidentity.bicep' = {
+  name: 'managed-identity'
+  scope: resourceGroup
+  params: {
+    name: '${abbrs.managedIdentityUserAssignedIdentities}${resourceToken}'
+    location: location
+    tags: tags
+  }
+}
+
 module openAi 'core/ai/cognitiveservices.bicep' = {
   name: 'openai'
   scope: resourceGroup
@@ -52,6 +63,7 @@ module openAi 'core/ai/cognitiveservices.bicep' = {
       name: openAiSkuName
     }
     disableLocalAuth: true
+    managedIdentityId: managedIdentity.outputs.id
     deployments: [
       {
         name: chatDeploymentName
@@ -84,6 +96,18 @@ module openAiRoleUser 'core/security/role.bicep' = {
   }
 }
 
+// Managed identity role for OpenAI
+module openAiRoleManagedIdentity 'core/security/role.bicep' = {
+  scope: resourceGroup
+  name: 'openai-role-managed-identity'
+  params: {
+    principalId: managedIdentity.outputs.principalId
+    // Cognitive Services OpenAI User
+    roleDefinitionId: '5e0bd9bd-7b93-4f28-af87-19fc36ad61bd'
+    principalType: 'ServicePrincipal'
+  }
+}
+
 output AZURE_LOCATION string = location
 output AZURE_TENANT_ID string = tenant().tenantId
 output AZURE_RESOURCE_GROUP string = resourceGroup.name
@@ -91,3 +115,6 @@ output AZURE_RESOURCE_GROUP string = resourceGroup.name
 output AZURE_OPENAI_API_INSTANCE_NAME string = openAi.outputs.name
 output AZURE_OPENAI_API_DEPLOYMENT_NAME string = chatDeploymentName
 output AZURE_OPENAI_API_VERSION string = openAiVersion
+
+output AZURE_CLIENT_ID string = managedIdentity.outputs.clientId
+output AZURE_MANAGED_IDENTITY_NAME string = managedIdentity.outputs.name
