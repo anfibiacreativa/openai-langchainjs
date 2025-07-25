@@ -4,6 +4,12 @@ name: openai-langchainjs
 metadata:
   template: openai-langchainjs@1.0.0
 
+services:
+  api:
+    project: .
+    language: js
+    host: containerapp
+
 hooks:
   postprovision:
     windows:

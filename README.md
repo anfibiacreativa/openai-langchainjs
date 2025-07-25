@@ -83,6 +83,28 @@ To clean up all the Azure resources created by this sample:
 
 The resource group and all the resources will be deleted.
 
+## Architecture Diagram
+
+This sample demonstrates a simple integration between Azure OpenAI and LangChain.js. The architecture consists of:
+
+- **Azure OpenAI Service**: Provides the GPT model endpoints
+- **Node.js Application**: Uses LangChain.js to interact with Azure OpenAI
+- **Azure Role-Based Access Control**: Manages secure access to OpenAI resources
+- **Azure Developer CLI**: Automates deployment and configuration
+
+```
+┌─────────────────┐    ┌──────────────────┐    ┌─────────────────────┐
+│   Client App    │────│   LangChain.js   │────│   Azure OpenAI      │
+│   (Node.js)     │    │                  │    │   Service           │
+└─────────────────┘    └──────────────────┘    └─────────────────────┘
+                                │
+                                │
+                       ┌──────────────────┐
+                       │   Azure RBAC     │
+                       │   (Identity)     │
+                       └──────────────────┘
+```
+
 ## Resources
 
 Here are some resources to learn more about the technologies used in this sample:
