@@ -63,6 +63,7 @@ module openAi 'core/ai/cognitiveservices.bicep' = {
       name: openAiSkuName
     }
     disableLocalAuth: true
+    managedIdentityId: managedIdentity.outputs.id
     deployments: [
       {
         name: chatDeploymentName

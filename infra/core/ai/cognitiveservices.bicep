@@ -7,6 +7,9 @@ param customSubDomainName string = name
 param deployments array = []
 param kind string = 'OpenAI'
 
+// Microsoft.Identity - Managed identity for secure authentication
+param managedIdentityId string = ''
+
 @allowed([ 'Enabled', 'Disabled' ])
 param publicNetworkAccess string = 'Enabled'
 param sku object = {
@@ -34,6 +37,13 @@ resource account 'Microsoft.CognitiveServices/accounts@2023-05-01' = {
     disableLocalAuth: disableLocalAuth
   }
   sku: sku
+  // Microsoft.Identity - Enable managed identity authentication when managedIdentityId is provided
+  identity: !empty(managedIdentityId) ? {
+    type: 'UserAssigned'
+    userAssignedIdentities: {
+      '${managedIdentityId}': {}
+    }
+  } : null
 }
 
 @batchSize(1)
