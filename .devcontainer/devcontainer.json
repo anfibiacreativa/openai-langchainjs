@@ -23,11 +23,7 @@
   // Configure tool-specific properties.
   "customizations": {
     "vscode": {
-      "extensions": [
-        "ms-azuretools.azure-dev",
-        "ms-azuretools.vscode-bicep",
-        "esbenp.prettier-vscode"
-      ]
+      "extensions": ["ms-azuretools.azure-dev", "ms-azuretools.vscode-bicep", "esbenp.prettier-vscode"]
     }
   },
 

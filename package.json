@@ -21,14 +21,7 @@
   "bugs": {
     "url": "https://github.com/Azure-Samples/openai-langchainjs/issues"
   },
-  "keywords": [
-    "azure",
-    "openai",
-    "sdk",
-    "langchain",
-    "javascript",
-    "sample"
-  ],
+  "keywords": ["azure", "openai", "sdk", "langchain", "javascript", "sample"],
   "author": "Microsoft",
   "license": "MIT",
   "dependencies": {
@@ -58,9 +51,7 @@
   "xo": {
     "space": true,
     "prettier": true,
-    "envs": [
-      "node"
-    ],
+    "envs": ["node"],
     "rules": {
       "@typescript-eslint/naming-convention": "off"
     }
@@ -73,9 +64,7 @@
     "bracketSpacing": true,
     "overrides": [
       {
-        "files": [
-          "*.json"
-        ],
+        "files": ["*.json"],
         "options": {
           "parser": "json"
         }
